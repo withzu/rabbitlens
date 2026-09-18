@@ -4,7 +4,7 @@ import { getMessages } from "@/lib/rabbitmq"
 
 export async function GET(
   request: NextRequest,
-  ctx: RouteContext<"/api/queues/[queue]/messages">
+  ctx: { params: Promise<{ queue: string }> }
 ) {
   const { queue } = await ctx.params
   const count = Number(request.nextUrl.searchParams.get("count") ?? 20)
