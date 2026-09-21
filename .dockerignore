@@ -5,3 +5,6 @@ node_modules
 *.md
 .env*
 !.env.example
+docker-compose.dev.yml
+scripts
+.claude

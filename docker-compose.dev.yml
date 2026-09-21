@@ -1,0 +1,24 @@
+# Local preview environment for RabbitLens.
+#
+#   docker compose -f docker-compose.dev.yml up -d
+#   node scripts/seed-rabbitmq.mjs
+#   pnpm dev
+#
+# Management API/UI: http://localhost:15672 (guest / guest)
+
+services:
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: rabbitlens-dev-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+      RABBITMQ_DEFAULT_VHOST: "/"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "check_running"]
+      interval: 5s
+      timeout: 10s
+      retries: 20
